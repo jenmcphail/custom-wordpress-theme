@@ -1,0 +1,1 @@
+Just some practice making custom themes for Wordpress :)
