@@ -123,6 +123,9 @@ function jenscores_scripts() {
 }
 add_action( 'wp_enqueue_scripts', 'jenscores_scripts' );
 
+include (TEMPLATEPATH . '/marquee/php/marquee_functions_include.php');
+
+
 /**
  * Implement the Custom Header feature.
  */
