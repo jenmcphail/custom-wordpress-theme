@@ -22,22 +22,40 @@
 <body <?php body_class(); ?>>
 <div id="page" class="site">
 	<a class="skip-link screen-reader-text" href="#content"><?php esc_html_e( 'Skip to content', 'jenscores' ); ?></a>
+	
+	<?php if ( get_header_image() ) { ?>
+		<header id="masthead" class="site-header" style= "background-image: url(<?php header_image(); ?>)" role="banner">
+	<?php } else { ?>
+		<header id="masthead" class="site-header" role="banner"
+	<?php } ?>
 
-	<header id="masthead" class="site-header" role="banner">
-		<div class="site-branding">
-			<?php
-			if ( is_front_page() && is_home() ) : ?>
+	<?php // Display site icon or first letter as logo ?>	
+		<div class="site-logo">
+			<?php $site_title = get_bloginfo( 'name' ); ?>
+			<a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home">
+				<div class="screen-reader-text">
+					<?php printf( esc_html__('Go to the home page of %1$s', 'popperscores'), $site_title ); ?>	
+				</div>
+				<?php if (has_custom_logo()) {
+					the_custom_logo();
+				} else { ?>
+					<div class="site-firstletter" aria-hidden="true">
+						<?php echo substr($site_title, 0, 1); ?>
+					</div>
+				<?php }?>
+			</a>
+		</div>
+
+		<div class="site-branding<?php if ( is_singular() ) { echo ' screen-reader-text'; } ?>">
+			<?php if ( is_front_page() && is_home() ) : ?>
 				<h1 class="site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></h1>
 			<?php else : ?>
 				<p class="site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></p>
-			<?php
-			endif;
-
+			<?php endif;
 			$description = get_bloginfo( 'description', 'display' );
 			if ( $description || is_customize_preview() ) : ?>
 				<p class="site-description"><?php echo $description; /* WPCS: xss ok. */ ?></p>
-			<?php
-			endif; ?>
+			<?php endif; ?>
 		</div><!-- .site-branding -->
 
 		<nav id="site-navigation" class="main-navigation" role="navigation">
